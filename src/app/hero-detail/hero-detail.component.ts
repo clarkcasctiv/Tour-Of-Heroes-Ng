@@ -10,7 +10,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  hero: Hero;
+  @Input() hero: Hero;
   // ActivatedRoute -- holds information about the route
   // Location -- Angular Service for interacting with the browser
   constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) {}
@@ -30,5 +30,11 @@ export class HeroDetailComponent implements OnInit {
 
   goBack(): void {
 this.location.back();
+  }
+
+  save(): void {
+    this.heroService.updateHero(this.hero).subscribe(() => {
+      this.goBack();
+    });
   }
 }
